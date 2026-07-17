@@ -3,9 +3,10 @@ days = {}                   # Result: {date: {location: {worker: hours}}}
 current_date = None         # Pointer: active date block
 current_location = None     # Pointer: active location block
 expecting_location = False  # Flag: next non-date line is a location
+review_log = []
 
 # --- Load file ---
-with open("sample_messages.txt") as file:
+with open("sample_messages.txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
 
 
@@ -41,6 +42,7 @@ def split_worker(line):
 
     position = None
     last = None
+    hour_words = ["jumate", "zi", "numai", "doar", "pana"]
 
     # Find the first and last digit positions in the line.
 
@@ -56,7 +58,8 @@ def split_worker(line):
     # Guard: if no digits found, return the whole line as name and None for hours.
 
     if position is None:
-        return line.strip(), None
+        # Check if the line contains any of the hour-related words to determine if it needs review
+        return line.strip(), None, any(word in line.lower() for word in hour_words) 
     
     name = line[:position].rstrip("+ ")
     hours = line[position:last + 1].strip() 
@@ -70,10 +73,11 @@ def split_worker(line):
         else:
             hours = float(hours)
 
-        return name, hours
+        flag = any(word in line.lower() for word in ["jumate", "zi", "doar", "numai", "pana"]) or "+" not in line
+        return name, hours, flag
 
     except ValueError:
-        return name, None
+        return name, None, True
 
 
 # --- Parse: group lines into days → locations → workers → hours ---
@@ -98,9 +102,17 @@ for line in lines:
             days[current_date][current_location] = {}
         expecting_location = False
     else:
-        name, hours = split_worker(line)
+        name, hours, needs_review = split_worker(line)
+        if needs_review:
+            review_log.append(f"Review: {current_date} → {current_location} → {line}") # Review log entry for lines that need attention
+            
+
         if name not in days[current_date][current_location]:
-            days[current_date][current_location][name] = hours
+            days[current_date][current_location][name] = hours 
+
+with open("review.txt", "w", encoding="utf-8") as f:
+    for entry in review_log:
+        f.write(entry + "\n")
 
 # --- Display ---
 for date in days:
