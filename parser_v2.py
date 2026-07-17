@@ -6,7 +6,7 @@ expecting_location = False  # Flag: next non-date line is a location
 review_log = []
 
 # --- Load file ---
-with open("sample_messages.txt", "r", encoding="utf-8") as file:
+with open("sample_messages_v2.txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
 
 
@@ -73,7 +73,7 @@ def split_worker(line):
         else:
             hours = float(hours)
 
-        flag = any(word in line.lower() for word in ["jumate", "zi", "doar", "numai", "pana"]) or "+" not in line
+        flag = any(word in line.lower() for word in ["jumate", "zi", "doar", "numai", "pana"]) or "+" not in line  # Romanian words indicating partial hours or special cases, or if '+' is missing
         return name, hours, flag
 
     except ValueError:
@@ -110,7 +110,7 @@ for line in lines:
         if name not in days[current_date][current_location]:
             days[current_date][current_location][name] = hours 
 
-with open("review.txt", "w", encoding="utf-8") as f:
+with open("review.txt", "w", encoding="utf-8") as f: # Write the review log to a file
     for entry in review_log:
         f.write(entry + "\n")
 
@@ -118,12 +118,3 @@ with open("review.txt", "w", encoding="utf-8") as f:
 for date in days:
     print(date, "→", days[date])
     print()
-
-# Test cases for split_worker function
-
-print(split_worker("Florin + 3.50 h"))
-print(split_worker("Augustin Romez +1:30 h"))
-print(split_worker("Vali James + 3.50.h"))
-print(split_worker("Vladimir + 3 ore"))
-print(split_worker("Vladimir Vorsi doar 3 h"))
-print(split_worker("Abel Nan"))
