@@ -1,3 +1,9 @@
+from openpyxl import Workbook
+
+wb = Workbook()
+ws = wb.active
+ws.append(["Date", "Location", "Worker", "Hours"])   # header row
+
 # --- Setup ---
 days = {}                   # Result: {date: {location: {worker: hours}}}
 current_date = None         # Pointer: active date block
@@ -9,14 +15,12 @@ review_log = []
 with open("sample_messages_v2.txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
 
-
 def is_date_line(line):
     """A line starts a new date block if its first character is a digit."""
     line = line.strip()
     if not line:            # guard: empty lines are not dates
         return False
     return line[0].isdigit()
-
 
 def clean_date(raw):
     """Normalise a date line to DD/MM/YYYY.
@@ -64,7 +68,6 @@ def split_worker(line):
     name = line[:position].rstrip("+ ")
     hours = line[position:last + 1].strip() 
 
-
     try:
         if ":" in hours:
             hour_parts = hours.split(":")
@@ -78,7 +81,6 @@ def split_worker(line):
 
     except ValueError:
         return name, None, True
-
 
 # --- Parse: group lines into days → locations → workers → hours ---
 for line in lines:
@@ -118,3 +120,12 @@ with open("review.txt", "w", encoding="utf-8") as f: # Write the review log to a
 for date in days:
     print(date, "→", days[date])
     print()
+
+# --- Export to Excel ---
+for date in days:
+    for location in days[date]:
+        for worker in days[date][location]:
+            hours = days[date][location][worker]
+            ws.append([date, location, worker, hours])
+
+wb.save("payroll.xlsx")
