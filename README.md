@@ -31,7 +31,10 @@ Review: 06/07/2026 → Arbus → Bibiea FLIN + 1 50 h
 
 ## How to run
 
-Put a WhatsApp chat export in `sample_messages.txt`, run `parser_v2.py`, read the structured output and `review.txt`.
+
+Requires `pip install openpyxl`
+
+Put a WhatsApp chat export in `sample_messages_v2.txt`, run `parser_v2.py`, you get three outputs: structured data in the terminal, `payroll.xlsx`, and `review.txt` for flagged lines.
 
 ## Known limitations & roadmap
 
@@ -40,8 +43,8 @@ Put a WhatsApp chat export in `sample_messages.txt`, run `parser_v2.py`, read th
 - Romanian words like `numai` or `doar` can remain stuck inside worker names
 - Locations starting with digits (postcodes) can be misread as date lines
 
-Planned: V3 — Excel export. V4 — overtime and pay-rate logic, plus worker search by date range.
+Planned: V4 — overtime and pay-rate logic, a review column in the Excel output, plus worker search by date range.
 
 ## Versions
 
-V1: proof of concept on clean, consistent messages. V2 (current): real-world formats, nested date → site → worker structure, review log.
+V1: proof of concept on clean, consistent messages. V2: real-world formats, nested date → site → worker structure, review log. V3: (current) — Excel export.
