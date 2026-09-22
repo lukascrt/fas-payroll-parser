@@ -1,0 +1,41 @@
+16.07.26
+Hospital
+Worker A o zi jumate
+Worker B o zi jumate
+Worker C o zi jumate
+Worker D o zi jumate
+
+16.07.26
+Site 1
+Worker A numai 4 ore
+
+16.07.26
+12 Example Road
+Worker C jumate de zi
+
+15,07,2026
+16,07,2026LONDON ROAD, LL00LN
+Worker E
+Worker F
+
+14.07.26
+Depot North
+Worker G +1.5h
+Worker Z +1.5h
+Worker H pana la 11:30
+Worker A +1.50h
+Worker L +1.5 h
+
+06.07.26
+Depot North
+Worker F + 1 50 h
+Worker V + 1.50 h
+Worker N + 1.50 h
+Worker S + 1 50 h
+Worker A + 1.50 h
+Worker V +1.50 h
+
+30.05.26
+142A EXAMPLE FLAT
+AVENUE ROAD
+Worker V + 4.30 ore
