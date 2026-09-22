@@ -10,7 +10,7 @@ Site 1
 Worker A numai 4 ore
 
 16.07.26
-12 Example Road
+Example Road
 Worker C jumate de zi
 
 15,07,2026
@@ -36,6 +36,6 @@ Worker A + 1.50 h
 Worker V +1.50 h
 
 30.05.26
-142A EXAMPLE FLAT
+EXAMPLE FLAT
 AVENUE ROAD
 Worker V + 4.30 ore

@@ -19,7 +19,7 @@ o zi jumate                        ← Romanian: "a day and a half"
 pana la 11:30                      ← a clock time, not a duration
 ```
 
-The parser's philosophy: parse what is certain, flag what isn't. It never crashes and never guesses silently.
+The parser's philosophy: parse what is certain, flag what isn't.
 
 ## The review log
 
@@ -43,7 +43,7 @@ Put a WhatsApp chat export in `sample_messages_v2.txt`, run `parser_v2.py`, you 
 - Times like `4.30` (meaning 4h 30m) are currently read as the decimal 4.3
 - Clock times such as `pana la 11:30` are flagged for review but stored as-is
 - Romanian words like `numai` or `doar` can remain stuck inside worker names
-- Locations starting with digits (postcodes) can be misread as date lines
+- Locations starting with digits (postcodes) can be misread as date lines and crash the parser, and that fix is planned for V4.
 
 Planned: V4 — overtime and pay-rate logic, a review column in the Excel output, plus worker search by date range.
 
